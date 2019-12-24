@@ -1,0 +1,44 @@
+Ins
+install eclipse latest version
+install npm
+install react native
+install expo
+
+in eclipse create new workspace and clone the project from git
+run npm install
+open this file /node_modules/metro-config/src/defaults/blacklist.js and change 
+this:
+var sharedBlacklist = [
+  /node_modules[/\\]react[/\\]dist[/\\].*/,
+  /website\/node_modules\/.*/,
+  /heapCapture\/bundle\.js/,
+  /.*\/__tests__\/.*/
+];
+to:
+var sharedBlacklist = [
+  /node_modules[\/\\]react[\/\\]dist[\/\\].*/,
+  /website\/node_modules\/.*/,
+  /heapCapture\/bundle\.js/,
+  /.*\/__tests__\/.*/
+];
+
+run expo start
+
+
+
+************************
+important notes:
+github for caterwe
+username: caterwe
+password: CaterWe2020
+
+hosting for caterwe at hostinger
+ftp host: 185.201.11.134
+ftp user: u979579548.caterwe
+ftp pass: Abcd1234#
+
+online database for caterwe:
+$servername = "sql158.main-hosting.eu";
+$username = "u979579548_caterwe";
+$dbname="u979579548_caterwe";
+$password = "Abcd1234#";
