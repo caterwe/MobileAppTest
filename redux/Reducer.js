@@ -1,8 +1,9 @@
- import {SET_LOGGEDIN_USER} from './ActionTypes';
+ import {SET_LOGGEDIN_USER,SET_SELECTED_ADDRESS} from './ActionTypes';
 
 const initialState = {
   loggedInUser:null,
   rememberdUsername:null,
+  selectedAddress:null,
 }
 
 const Reducer = (state=initialState,action) => {
@@ -11,6 +12,11 @@ const Reducer = (state=initialState,action) => {
         return {
           ...state,
           loggedInUser:action.payload
+        }
+    case SET_SELECTED_ADDRESS:
+        return {
+          ...state,
+          selectedAddress:action.payload
         }
       
   }

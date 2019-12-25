@@ -5,6 +5,8 @@ export default {
     primaryButtonColor:'#00A82D',
     primaryButtonTitleColor:'white',
     primaryButtonTitleColor2:'#007520',
+    primaryHeaderColor:'#00A82D',
+
     primaryPlaceholderTextColor:'#7176A0',
     primaryTextInputColor:'#B4B6CB',
     primaryTextInputBorderBottomColor:'#515CAA',

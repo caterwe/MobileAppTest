@@ -43,16 +43,9 @@ class AppLanding extends React.Component {
 
 
     render() {
-        debugger;
-        if (this.props.loggedInUser!==null) {
             return (
                 <AppContainerMain />
             )
-        } else {
-            return (
-                <AppContainerLogin />
-            )
-        }
     }
 }
 

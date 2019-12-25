@@ -9,15 +9,14 @@ const TextDisplay = ({text, style, children,...props})=> {
 	);
 }
 
-const ButtonNormal = ({title,onPress,icon,loading,type,buttonStyle,...props})=> {
+const ButtonNormal = ({title,onPress,icon,type,buttonStyle,titleStyle,...props})=> {
 	return(
 		<Button
 			title={title}
-			buttonStyle={{borderRadius:10,backgroundColor:type==='clear'?'transparent':Colors.primaryButtonColor,...buttonStyle,}}
-			titleStyle={{fontFamily:'BasicFont',color:type==='clear'?Colors.primaryButtonTitleColor2:Colors.primaryButtonTitleColor}} 
+			buttonStyle={{borderRadius:10,backgroundColor:type==='clear'?'transparent':Colors.primaryButtonColor,...buttonStyle}}
+			titleStyle={{fontFamily:'BasicFont',color:type==='clear'?Colors.primaryButtonTitleColor2:Colors.primaryButtonTitleColor,...titleStyle}} 
 			onPress={onPress}
 			icon={icon}
-			{...loading}
 			type={type}
 			{...props}
 		/>
