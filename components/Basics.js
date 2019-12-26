@@ -14,7 +14,7 @@ const ButtonNormal = ({title,onPress,icon,type,buttonStyle,titleStyle,...props})
 		<Button
 			title={title}
 			buttonStyle={{borderRadius:10,backgroundColor:type==='clear'?'transparent':Colors.primaryButtonColor,...buttonStyle}}
-			titleStyle={{fontFamily:'BasicFont',color:type==='clear'?Colors.primaryButtonTitleColor2:Colors.primaryButtonTitleColor,...titleStyle}} 
+			titleStyle={{fontFamily:'BasicFont',fontSize:16,color:type==='clear'?Colors.primaryButtonTitleColor2:Colors.primaryButtonTitleColor,...titleStyle}} 
 			onPress={onPress}
 			icon={icon}
 			type={type}
@@ -23,10 +23,15 @@ const ButtonNormal = ({title,onPress,icon,type,buttonStyle,titleStyle,...props})
 	);
 }
 
-const TextInput = ({containerStyle,...props}) => {
+const TextInput = ({containerStyle,inputStyle,...props}) => {
 	return (
-		<Input {...props} containerStyle={containerStyle!=null?containerStyle:{}}/>
+		<Input {...props} inputStyle={{fontFamily:'BasicFont',fontSize:16, color:Colors.primaryTextInputForeColor,...inputStyle}} containerStyle={{...containerStyle}} inputContainerStyle={{padding:5,backgroundColor:Colors.primaryTextInputColor,borderColor:Colors.primaryBorderColor,borderBottomWidth:1}}/>
 	)
+}
+
+const TextInputRounded = ({containerStyle,inputStyle,...props}) => {
+	return (
+		<Input {...props} inputStyle={{fontFamily:'BasicFont',fontSize:16,color:Colors.primaryTextInputForeColor,...inputStyle}} containerStyle={{...containerStyle}} inputContainerStyle={{padding:5,backgroundColor:Colors.primaryTextInputColor,borderColor:Colors.primaryBorderColor,borderWidth:1, borderRadius:5}} />	);
 }
 
 const ImageNormal = ({image,width,height})=>{
@@ -39,4 +44,4 @@ const ImageNormal = ({image,width,height})=>{
 	);
 }
 
-export {TextDisplay,ButtonNormal, TextInput, ImageNormal};
+export {TextDisplay,ButtonNormal, TextInput, ImageNormal,TextInputRounded};

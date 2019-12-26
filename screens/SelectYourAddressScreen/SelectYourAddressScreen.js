@@ -1,5 +1,5 @@
 import React from 'react';
-import { View , TextInput} from 'react-native';
+import { View , TextInput, Text,ScrollView} from 'react-native';
 import {connect} from 'react-redux';
 import {ButtonNormal} from '../../components/Basics';
 import Colors from '../../styles/Colors';
@@ -8,7 +8,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import Geocode from "react-geocode";
-import {SET_SELECTED_ADDRESS} from '../../redux/ActionTypes';
+import {SET_SELECTED_ADDRESS,SET_SELECTED_SHORT_ADDRESS} from '../../redux/ActionTypes';
+import AddressAutoComplete from '../../components/AddressAutoComplete';
 
 class SelectYourAddressScreen extends React.Component {
 
@@ -42,8 +43,10 @@ state={
     Geocode.fromLatLng(location.coords.latitude, location.coords.longitude).then(
     response => {
         const address = response.results[0].formatted_address;
+        const shortAddredss = response.results[0].address_components[0].long_name + " " + response.results[0].address_components[1].long_name;
         this.setState({locationAddress:address,locationProcessing:false});
         this.props.setSelectedAddress(address);
+        this.props.setSelectedShortAddress(shortAddredss);
         //this.props.thisRef.setState({currentScreen:"SearchScreen"});
         this.props.navigation.navigate("Search");
 
@@ -54,6 +57,17 @@ state={
     );
   };
 
+
+  locationResultClick = (el)=> {
+      debugger;
+      this.setState({locationAddress:el.description},()=>{
+        this.props.setSelectedAddress(el.description);
+        this.props.setSelectedShortAddress(el.structured_formatting.main_text);
+        this.props.navigation.navigate("Search");
+      });
+
+  }
+
     render() {
         return (
         <View>
@@ -61,17 +75,19 @@ state={
                 <Header
                     placement="left"
                     backgroundColor={Colors.primaryHeaderColor}
-                    leftComponent={{ icon: 'close', color: '#fff',style:{ backgroundColor:'silver'}, onPress:()=>{this.props.navigation.goBack()}}}
-                    centerComponent={{ text: 'Select Your Address', style: { color: '#fff', fontSize:18, alignSelf:'center', fontFamily:'BasicFont'} }}
+                    leftComponent={{ icon: 'close', color: Colors.primaryHeaderForeColor, onPress:()=>{this.props.navigation.goBack()}}}
+                    centerComponent={{ text: 'Select Your Address', style: { color: Colors.primaryHeaderForeColor, fontSize:18, alignSelf:'center', fontFamily:'BasicFont'} }}
+                    rightComponent={{ icon: 'close', color: Colors.primaryHeaderColor}}                    
                 />
             </View>
             
-            <TextInput value={this.state.locationAddress} 
+            {/* <TextInput value={this.state.locationAddress} 
                 placeholder="Type in your address" style={{padding:10,backgroundColor:'white', height:60,borderColor:'#DDDDDD',borderBottomWidth:1}}
                 onChangeText={text=>{
                     this.setState({locationAddress:text});
                 }}
-                />
+                /> */}
+                <AddressAutoComplete placeholder="Type in your address" value={this.state.locationAddress} handleLocationResultClick={this.locationResultClick} setStateValue={text=>{this.setState({locationAddress:text})}}/>
 
             <ButtonNormal title="Select Current Address" type="clear" buttonStyle={{alignSelf:'flex-start', }}
                 icon={
@@ -84,7 +100,7 @@ state={
                 loading={this.state.locationProcessing}
                 onPress={this.getLocation} 
                         
-            />
+            /> 
         </View>        
         );
     }
@@ -94,14 +110,17 @@ state={
   function mapStateToProps(state) {
     return {
         loggedInUser:state.loggedInUser,
-        selectedAddress:state.selectedAddress
+        selectedAddress:state.selectedAddress,
+        setSelectedShortAddress:state.setSelectedShortAddress,
     }
 }
 
 function mapDispatchToProp(dispatch) {
     return {
         setLoggedinUser: (user) => dispatch({type:SET_LOGGEDIN_USER,payload:user}),
-        setSelectedAddress: (address) => dispatch({type:SET_SELECTED_ADDRESS,payload:address}),   
+        setSelectedAddress: (address) => dispatch({type:SET_SELECTED_ADDRESS,payload:address}),
+        setSelectedShortAddress: (shortAddredss) => dispatch({type:SET_SELECTED_SHORT_ADDRESS,payload:shortAddredss}),   
+   
     }
 }
   

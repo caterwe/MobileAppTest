@@ -1,13 +1,12 @@
 import React from 'react';
-import { View ,Image , TextInput, Button} from 'react-native';
+import { View ,Image , Button} from 'react-native';
 import {connect} from 'react-redux';
-import {ButtonNormal,TextDisplay, ImageNormal} from '../../components/Basics';
+import {ButtonNormal,TextDisplay, ImageNormal, TextInputRounded} from '../../components/Basics';
 import Layout from '../../common/Layout';
 import Colors from '../../styles/Colors';
 import {Header} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SelectYourAddressScreen from '../SelectYourAddressScreen';
-
 
 class SearchScreen extends React.Component {
 
@@ -19,7 +18,7 @@ state={
 
 
 
-    SelectedAddress=(address)=>{
+    SelectedAddressComponent=(address)=>{
         debugger;
         return (
             <ButtonNormal
@@ -48,7 +47,20 @@ state={
                     placement="left"
                     backgroundColor={Colors.primaryHeaderColor}
                     leftComponent={{ icon: 'menu', color: '#fff',style:{ backgroundColor:'silver'}, onPress:()=>{this.props.thisRef.setState({currentScreen:null})}}}
-                    centerComponent={this.SelectedAddress(this.props.selectedAddress)}
+                    centerComponent={this.SelectedAddressComponent(this.props.selectedShortAddress)}
+                    rightComponent={{icon:'shopping-cart',color:'#fff'}}
+                />
+
+                <TextInputRounded placeholder="Cterer, dish ..etc" containerStyle={{marginTop:10,}}
+                    rightIcon={
+                        <Icon
+                            name="search"
+                            size={20}
+                            style={{marginRight:5,}}
+                            color={Colors.primaryTextColor3}
+                            onPress={()=>{this.props.setStateValue(null)}}
+                            />
+                    }
                 />
             </View>
         </View>        
@@ -60,7 +72,8 @@ state={
   function mapStateToProps(state) {
     return {
         loggedInUser:state.loggedInUser,
-        selectedAddress:state.selectedAddress
+        selectedAddress:state.selectedAddress,
+        selectedShortAddress:state.selectedShortAddress,
     }
 }
 
