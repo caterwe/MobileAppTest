@@ -36,7 +36,6 @@ state={
 
     let location = await Location.getCurrentPositionAsync({});
     this.setState({ location });
-    debugger;
     //get location address from google
     // Get address from latidude & longitude.
     Geocode.setApiKey("AIzaSyDWb_4S_s0Ysn9mH_na2hDjsYcEExpYBNQ");
@@ -59,7 +58,6 @@ state={
 
 
   locationResultClick = (el)=> {
-      debugger;
       this.setState({locationAddress:el.description},()=>{
         this.props.setSelectedAddress(el.description);
         this.props.setSelectedShortAddress(el.structured_formatting.main_text);

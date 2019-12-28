@@ -8,7 +8,6 @@ import SelectYourAddressScreen from '../SelectYourAddressScreen';
 import SearchScreen from '../SearchScreen';
 import * as Animatable  from 'react-native-animatable';
 
-
 class MainScreen extends React.Component {
 
     state={
@@ -41,13 +40,6 @@ class MainScreen extends React.Component {
     }
 
     render() {
-        if (this.state.currentScreen!==null) {
-            return (
-            <Animatable.View animation="zoomIn" useNativeDriver={true} duration={200}>
-                <SelectYourAddressScreen thisRef={this} />
-            </Animatable.View>
-            );
-        }
         return (
         <View style={{flex:1, flexDirection:'row',alignSelf:'center',marginTop:40}}>           
             <View style={{flex:1,justifyContent:'flex-start'}}>
@@ -55,7 +47,7 @@ class MainScreen extends React.Component {
                 <View style={{alignItems:'center',marginTop:20}}>
                     
                     <View style={{flexDirection:'row',margin:35}}> 
-                        <TextDisplay style={{fontSize:24, textAlign:'center'}}>
+                        <TextDisplay style={{fontSize:20, textAlign:'center'}}>
                             <TextDisplay style={{color:Colors.primaryTextColor2,fontWeight:'bold'}}>Order </TextDisplay> 
                             <TextDisplay style={{fontWeight:'bold'}}>your traditional catering from chef’s around your area</TextDisplay>
                         </TextDisplay>

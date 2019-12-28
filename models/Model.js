@@ -1,7 +1,8 @@
 import {AsyncStorage} from 'react-native';
-import Config from '../common/config';
+import Config from '../common/Config';
 import PersistenceHelper from '../common/LocalPersistenceHelper';
 import Helper from '../common/Helper';
+import WebServiceHelper from '../common/WebServiceHelper';
 
 class Model {
     ToJSON (text) {
@@ -16,7 +17,7 @@ class Model {
     }
 
     getPostUrl(){
-		return Config.dataSourceUrl+"dbactions.php?t="+this.getTableName();
+		return Config.dataSourceUrl+"dbactions2.php?t="+this.getTableName();
 	}
 	
 	getTableName() {
@@ -63,23 +64,20 @@ class Model {
 
 	getAll() {
         var postUrl = this.getPostUrl() + "&type=ga";
-        return this.getLocalJAT().then(u=>{
-            return Helper.postUrl(postUrl,{...this.getOnlineModelAttributes(),...u}).then(res=>{
-                let s1=this.ToJSON(res._bodyText);
+            return WebServiceHelper.postUrl(postUrl,{...this.getOnlineModelAttributes()}).then(res=>{
+                let s1=res.data;
                 let s2={result:s1.result,
                     data:this.ToJSON(s1.data)};
                 return s2;
             }).catch(err=>{
                 return {result:false,msg:err};});
-        });
     }
-    
+
     getAllBy(params,orderBy={}) {
         var postUrl = this.getPostUrl() + "&type=gab";
-        return this.getLocalJAT().then(u=>{
-            return Helper.postUrl(postUrl,{params:params,...this.getOnlineModelAttributes(),...u,orderBy:orderBy}).then(res=>{
+            return WebServiceHelper.postUrl(postUrl,{params:params,...this.getOnlineModelAttributes(),orderBy:orderBy}).then(res=>{
                 try {
-                    let s=this.ToJSON(res._bodyText);
+                    let s=res.data;
                     if (s.result==="ok") {
                         //create instance and retun it to map it and be able to use model functions such as update.
                         var instances=[];
@@ -97,7 +95,6 @@ class Model {
             }).catch(err=>{
                  return {result:false,msg:err};
             });
-        });
     }
 
     sendEmail(to,subject,message) {

@@ -1,5 +1,5 @@
 import {FileSystem} from 'expo';
-import Config from '../common/config';
+import Config from '../common/Config';
 import {AsyncStorage } from 'react-native';
 
 export default {

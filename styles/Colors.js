@@ -11,8 +11,9 @@ export default {
     primaryHeaderForeColor:'#FFF',
     primaryTextInputColor:'#FFF',
     primaryTextInputForeColor:'#333333',
+    primaryPlaceholderTextColor:'silver',
+    primaryActivityIndicatorColor:'gray',
 
-    primaryPlaceholderTextColor:'#7176A0',
     primaryTextInputBorderBottomColor:'#515CAA',
     primaryHeaderIconColor:'white',
     primaryButtonBackGroundColor:'#17A2D4',
@@ -23,7 +24,6 @@ export default {
     primaryListItemsBackGroundColor:'#303665',
     primaryWarningBackGroundColor:'#FFF2CC',
     primaryListItemBorderColor:'#23284B',
-    primaryActivityIndicatorColor:'white',
     primaryTextLinkBackgroundColor:'#CCCCCC',
     primaryModalBackgroundColor:'#003366',
     primaryModalBorderColor:'#5C6283',
