@@ -1,11 +1,10 @@
 import React from 'react';
-import { View ,Image , Button,ScrollView,TouchableOpacity,Text} from 'react-native';
+import { View ,Image , Button,ScrollView,TouchableOpacity,Text,StyleSheet} from 'react-native';
 import { GoogleAutoComplete } from 'react-native-google-autocomplete';
 import Layout from '../../common/Layout';
-import { TextDisplay,TextInput } from '../Basics';
+import { TextDisplay,TextInput, FloatingLabelInput } from '../Basics';
 import Colors from '../../styles/Colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
 
 export default class extends React.Component {
     render() {
@@ -13,26 +12,15 @@ export default class extends React.Component {
 			<GoogleAutoComplete apiKey="AIzaSyDWb_4S_s0Ysn9mH_na2hDjsYcEExpYBNQ" debounce={300}>
 			{({ inputValue, handleTextChange, locationResults, fetchDetails }) => (
 				<View>
-				<TextInput 
-					autoFocus={true}
-					inputContainerStyle={{marginLeft:-10,marginRight:-10,padding:10,backgroundColor:'white', height:60,borderColor:'#DDDDDD',borderBottomWidth:1}}
-					value={this.props.value}
-					onChangeText={text=>{this.props.setStateValue(text);handleTextChange(text);}}
-					placeholder={this.props.placeholder}
-					rightIcon={()=>{
-						if (this.props.value!==null && this.props.value.length>0)
-							return (
-								<Icon
-								name="close"
-								size={20}
-								style={{marginRight:5,}}
-								color={Colors.primaryTextColor3}
-								onPress={()=>{this.props.setStateValue(null)}}
-								/>
-							);
-					}
-					}
-				/>
+			        <FloatingLabelInput 
+						value={this.props.value}
+						inputStyle={{fontSize:14}}
+						onChangeText={text=>{this.props.setStateValue(text);handleTextChange(text);}}
+						placeholder="Your Address"
+						autoFocus={true}
+					></FloatingLabelInput>
+
+
 				{this.props.value!==null && this.props.value.length>1 && (
 				<ScrollView style={{maxHeight:Layout.window.height}}>
 					{locationResults.map((el, i) => (
@@ -52,5 +40,3 @@ export default class extends React.Component {
         );
     }
 }
-
-	 

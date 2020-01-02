@@ -81,4 +81,10 @@ export default {
              return ""
          }
      }
+     ,
+
+     isNotNullOrUndefined: (obj) => {
+         return obj !==null && obj !== undefined && typeof(obj)!=="undefined";
+     },
+
 }

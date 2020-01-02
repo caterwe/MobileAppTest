@@ -1,9 +1,9 @@
 {
-  "expoServerNgrokUrl": "https://r3-hi2.haroonjoblo.mobileapp.exp.direct",
-  "packagerNgrokUrl": "https://packager.r3-hi2.haroonjoblo.mobileapp.exp.direct",
-  "ngrokPid": 7528,
+  "expoServerNgrokUrl": "https://gu-j5x.haroonjoblo.mobileapp.exp.direct",
+  "packagerNgrokUrl": "https://packager.gu-j5x.haroonjoblo.mobileapp.exp.direct",
+  "ngrokPid": 9020,
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 12272
+  "packagerPid": 10688
 }

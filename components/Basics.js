@@ -1,9 +1,10 @@
 import React from 'react';
-import {Button, Input , Text,Image} from 'react-native-elements';
-import { ActivityIndicator } from 'react-native';
+import {Button, Input , Text,Image, ButtonGroup} from 'react-native-elements';
+import { ActivityIndicator, StyleSheet } from 'react-native';
 import Colors from '../styles/Colors';
+import FloatingLabel from 'react-native-floating-labels'
 
-const TextDisplay = ({text, style, children,...props})=> {
+const TextDisplay = ({style, children,...props})=> {
 	return(
 		<Text style={{fontFamily:'BasicFont',color:Colors.primaryTextColor,...style}} {...props}>{children}</Text>
 	);
@@ -22,6 +23,19 @@ const ButtonNormal = ({title,onPress,icon,type,buttonStyle,titleStyle,...props})
 		/>
 	);
 }
+
+const ButtonGroupNormal = ({onPress,selectedIndex,buttons}) => (
+	<ButtonGroup 
+	onPress={onPress}
+	selectedIndex={selectedIndex}
+	buttons={buttons}
+	containerStyle={styles.buttonGroupContainerStyle}
+	selectedTextStyle= {styles.buttonGroupSelectedTextStyle}
+	textStyle={styles.buttonGroupTextStyle}
+	selectedButtonStyle={styles.buttonGroupSelectedButtonStyle}
+	innerBorderStyle={{width:1,color:'#D6D6D6'}}
+	/> 
+)
 
 const TextInput = ({containerStyle,inputContainerStyle,inputStyle,...props}) => {
 	return (
@@ -44,4 +58,36 @@ const ImageNormal = ({image,width,height})=>{
 	);
 }
 
-export {TextDisplay,ButtonNormal, TextInput, ImageNormal,TextInputRounded};
+const FloatingLabelInput = ({placeholder,inputStyle,style,...props}) => {
+	return (
+		<FloatingLabel 
+		labelStyle={{fontSize:14,fontFamily:'BasicFont'}} 
+		inputStyle={{padding:0, borderWidth: 0,fontSize:14,fontFamily:'BasicFont',...inputStyle}}
+		style={{paddingTop:0,backgroundColor: Colors.primaryTextInputColor,borderBottomWidth:1,borderBottomColor:Colors.primaryBorderColor,...style}}
+		{...props}
+	>{placeholder}</FloatingLabel>
+	)
+}
+
+const styles = StyleSheet.create({
+    buttonGroupContainerStyle: {
+        margin:2,padding:0,marginLeft:5,marginRight:5,
+        borderWidth:2,borderColor:Colors.buttonGroupBackGroundColor,borderRadius:10,
+        backgroundColor:Colors.buttonGroupBackGroundColor,height:35,
+    },
+    buttonGroupTextStyle: {
+        fontFamily:'BasicFont',
+        fontSize:14,
+        borderWidth:0,
+    },
+    buttonGroupSelectedTextStyle: {
+        fontFamily:'BasicFont',
+        fontSize:14,
+        borderWidth:0,
+    },    
+    buttonGroupSelectedButtonStyle: {
+        borderWidth:0,
+    }
+})
+
+export {TextDisplay,ButtonNormal, TextInput, ImageNormal,TextInputRounded,FloatingLabelInput,ButtonGroupNormal};

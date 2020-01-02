@@ -4,6 +4,9 @@ import Layout from '../common/Layout';
 import * as Font from 'expo-font';
 import Helper from '../common/Helper';
 import Colors from '../styles/Colors';
+import { TextDisplay } from '../components/Basics'; 
+import * as Animatable  from 'react-native-animatable';
+
 
 class RootScreen extends React.Component {
     constructor(props) {
@@ -48,7 +51,9 @@ class RootScreen extends React.Component {
         promptThirdButtonCallBackValidation:false,
         promptMaskNum:0,
         promptViewPassword:false,
-        promptKeyboardType:'default'
+        promptKeyboardType:'default',
+        overlayVisible:false,
+        overlayComponent:null,
     }
 
     addValidationError(errKey,errText) {
@@ -228,6 +233,10 @@ class RootScreen extends React.Component {
         })
     }
 
+    showOverlay(isVisible,component) {
+        this.setState({overlayVisible:isVisible,overlayComponent:component});
+    }
+
     render() {
             const children = React.Children.map(this.props.children, child => {
                 return React.cloneElement(child, {
@@ -248,6 +257,7 @@ class RootScreen extends React.Component {
                   showPromptPassword:this.showPromptPassword.bind(this),
                   showPromptEmail:this.showPromptEmail.bind(this),
                   showPromptNumpad:this.showPromptNumpad.bind(this),
+                  showOverlay:this.showOverlay.bind(this),
                 });
               });
               
@@ -281,6 +291,29 @@ class RootScreen extends React.Component {
                     {this.state.fontLoaded && this.state.promptVisible && (
                         <Text>Prompt visible</Text>
                     )}
+
+                    {this.state.fontLoaded && this.state.overlayVisible && (
+                            <View style={{position:'absolute',width:Layout.window.width,height:Layout.window.height,alignItems:'center',justifyContent:'center',flexDirection:'column',}}>
+                                <View style={{position:'absolute',width:Layout.window.width,height:Layout.window.height,alignItems:'center',justifyContent:'center',flexDirection:'column', backgroundColor:Colors.primaryTextColor2,opacity:0.7}}>
+                                </View>
+                                <Animatable.View duration={500} animation="bounceInUp" style={{position:'absolute',width:Layout.window.width,height:Layout.window.height,alignItems:'center',justifyContent:'center',flexDirection:'column',}} useNativeDriver={true}>
+                                    <View style={{backgroundColor:Colors.primaryBackGround,width:Layout.window.width-50,height:Layout.window.height-50,borderWidth:1,borderRadius:10, borderColor:Colors.primaryBorderColor,
+                                                shadowColor: Colors.primaryShadowColor,
+                                                shadowOffset: { 
+                                                    width: 0,
+                                                    height: 2,
+                                                },
+                                                shadowOpacity: 0.25,
+                                                shadowRadius: 3.84,
+
+                                                elevation: 5,
+                                                
+                                                }}>                                              
+                                        {this.state.overlayComponent}
+                                    </View>                        
+                                </Animatable.View>
+                            </View>        
+                    )}                    
                 </View>
             );
     }

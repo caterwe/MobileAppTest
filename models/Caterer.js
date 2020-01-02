@@ -1,4 +1,5 @@
 import Model from './Model';
+import Config from '../common/Config';
 
 class Caterer extends Model {
     constructor(id,name,description,address1,address2,city,state,zipcode,mainImage) {
@@ -18,8 +19,8 @@ class Caterer extends Model {
         return "Caterer";
     }
 
-    static getByName(name) {
-        return new Caterer().getAllBy([{name:"Name",value:'%'+name+'%'}]);
+    static getByName(name,startFrom) {
+        return new Caterer().getAllBy([{name:"Name",value:'%'+name+'%'}],startFrom,Config.basicFlatListResultSize);
 		}
 
 		static getAllCaterers() {

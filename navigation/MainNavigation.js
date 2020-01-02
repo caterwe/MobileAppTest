@@ -5,6 +5,7 @@ import LoginDetailsScreen from '../screens/LoginDetailsScreen'
 import { createAppContainer } from 'react-navigation';
 import SelectYourAddressScreen from '../screens/SelectYourAddressScreen';
 import SearchScreen from '../screens/SearchScreen';
+import CatererDetailsScreen from '../screens/CatererDetailsScreen';
 
 
 const Stack1 = createStackNavigator (
@@ -22,8 +23,10 @@ const Stack1 = createStackNavigator (
             screen:SearchScreen,
             navigationOptions: {
                 gesturesEnabled: false,
-            },              
-
+            },    
+        },
+        CatererDetails: {
+            screen:CatererDetailsScreen,
         }
     },
     {

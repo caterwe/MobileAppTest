@@ -8,7 +8,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import Geocode from "react-geocode";
-import {SET_SELECTED_ADDRESS,SET_SELECTED_SHORT_ADDRESS} from '../../redux/ActionTypes';
+import {SET_SELECTED_ADDRESS,SET_SELECTED_SHORT_ADDRESS, SET_TMP_SELECTED_ADDRESS, SET_TMP_SELECTED_SHORT_ADDRESS} from '../../redux/ActionTypes';
 import AddressAutoComplete from '../../components/AddressAutoComplete';
 
 class SelectYourAddressScreen extends React.Component {
@@ -21,6 +21,12 @@ state={
     componentDidUpdate() {
 
     }    
+
+    componentDidMount() {
+        if(this.props.navigation.getParam("address")) {
+            this.setState({locationAddress:this.props.navigation.getParam('address')});
+        }
+    }
 
 
 
@@ -44,11 +50,17 @@ state={
         const address = response.results[0].formatted_address;
         const shortAddredss = response.results[0].address_components[0].long_name + " " + response.results[0].address_components[1].long_name;
         this.setState({locationAddress:address,locationProcessing:false});
-        this.props.setSelectedAddress(address);
-        this.props.setSelectedShortAddress(shortAddredss);
         //this.props.thisRef.setState({currentScreen:"SearchScreen"});
-        this.props.navigation.navigate("Search");
-
+        debugger;
+        if (this.props.navigation.getParam("route")!==null && this.props.navigation.getParam("route")==="changeAddressPickupDateTime") {
+            this.props.setTmpSelectedAddress(address);
+            this.props.setTmpSelectedShortAddress(shortAddredss);
+            this.props.navigation.goBack();
+        }  else {
+            this.props.navigation.navigate("Search"); 
+            this.props.setSelectedAddress(address);
+            this.props.setSelectedShortAddress(shortAddredss);    
+        }
     },
     error => {
         this.setState({locationProcessing:false});
@@ -56,14 +68,19 @@ state={
     );
   };
 
-
   locationResultClick = (el)=> {
       this.setState({locationAddress:el.description},()=>{
-        this.props.setSelectedAddress(el.description);
-        this.props.setSelectedShortAddress(el.structured_formatting.main_text);
-        this.props.navigation.navigate("Search");
+        debugger;
+        if (this.props.navigation.getParam("route")!==null && this.props.navigation.getParam("route")==="changeAddressPickupDateTime") {
+            this.props.setTmpSelectedAddress(el.description);
+            this.props.setTmpSelectedShortAddress(el.structured_formatting.main_text);
+            this.props.navigation.goBack();
+        }  else {
+            this.props.navigation.navigate("Search"); 
+            this.props.setSelectedAddress(el.description);
+            this.props.setSelectedShortAddress(el.structured_formatting.main_text);
+            }
       });
-
   }
 
     render() {
@@ -109,7 +126,8 @@ state={
     return {
         loggedInUser:state.loggedInUser,
         selectedAddress:state.selectedAddress,
-        setSelectedShortAddress:state.setSelectedShortAddress,
+        selectedShortAddress:state.selectedShortAddress,
+        
     }
 }
 
@@ -117,7 +135,9 @@ function mapDispatchToProp(dispatch) {
     return {
         setLoggedinUser: (user) => dispatch({type:SET_LOGGEDIN_USER,payload:user}),
         setSelectedAddress: (address) => dispatch({type:SET_SELECTED_ADDRESS,payload:address}),
-        setSelectedShortAddress: (shortAddredss) => dispatch({type:SET_SELECTED_SHORT_ADDRESS,payload:shortAddredss}),   
+        setSelectedShortAddress: (shortAddredss) => dispatch({type:SET_SELECTED_SHORT_ADDRESS,payload:shortAddredss}),
+        setTmpSelectedAddress: (address) => dispatch({type:SET_TMP_SELECTED_ADDRESS,payload:address}),
+        setTmpSelectedShortAddress: (shortAddredss) => dispatch({type:SET_TMP_SELECTED_SHORT_ADDRESS,payload:shortAddredss}),
    
     }
 }

@@ -73,9 +73,10 @@ class Model {
                 return {result:false,msg:err};});
     }
 
-    getAllBy(params,orderBy={}) {
+    getAllBy(params,resultStartIndex=0,resultsSize=0,orderBy={}) { 
+        debugger;
         var postUrl = this.getPostUrl() + "&type=gab";
-            return WebServiceHelper.postUrl(postUrl,{params:params,...this.getOnlineModelAttributes(),orderBy:orderBy}).then(res=>{
+            return WebServiceHelper.postUrl(postUrl,{params:params,...this.getOnlineModelAttributes(),orderBy:orderBy,resultStartIndex:resultStartIndex,resultsSize:resultsSize}).then(res=>{
                 try {
                     let s=res.data;
                     if (s.result==="ok") {
@@ -85,7 +86,7 @@ class Model {
                             let instance = this.createInstanceByParameter(en);
                             instances.push(instance);
                         });
-                        return {result:true,data:instances};
+                        return {result:true,data:instances}; 0
                     } else {
                         return {result:false,msg:s.msg};
                     }

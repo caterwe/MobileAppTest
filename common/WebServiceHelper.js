@@ -3,6 +3,7 @@ import axios from 'axios';
 
 export default {
     postUrl: (url,json)=> {
+        debugger;
         //Make sure json doean't have undefined values, becuase server script will not catch it.
         for(var key in json) {
             var value = json[key];
