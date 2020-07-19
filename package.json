@@ -13,7 +13,7 @@
     "expo-location": "^8.0.0",
     "expo-permissions": "^8.0.0",
     "js-sha512": "^0.8.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "react": "~16.9.0",
     "react-geocode": "^0.2.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
